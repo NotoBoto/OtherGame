@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     public float PlayerSpeed;
     public float PlayerJumpForce;
     public bool HasWeapon;
+    public int NeedBoxes;
 
     void Awake()
     {
@@ -26,6 +27,8 @@ public class PlayerController : MonoBehaviour
         PlayerModel.Speed = PlayerSpeed;
         PlayerModel.JumpForce = PlayerJumpForce;
         PlayerModel.HasWeapon = HasWeapon;
+        PlayerModel.BoxCollected = 0;
+        PlayerModel.NeedBoxes = NeedBoxes;
     }
 
     void Update()
@@ -64,5 +67,21 @@ public class PlayerController : MonoBehaviour
         weapon.transform.localPosition = new Vector3(0.2f, 0.2f, 0f);
         weapon.transform.localRotation = Quaternion.Euler(0f, 0f, 95f);
         PlayerModel.IsUsingWeapon = false;
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            Destroy(this.gameObject);
+        }
     }
 }

@@ -17,10 +17,26 @@ public class CoinController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            collision.gameObject.GetComponent<PlayerController>().PlayerModel.Score += CoinValue;
-            FindAnyObjectByType<LvlController>().GetComponent<LvlController>().UpdateScore();
-            Destroy(gameObject);
+
+            PlayerController _player = collision.gameObject.GetComponent<PlayerController>();
+
+            if (this.CompareTag("Coin"))
+            {
+                _player.PlayerModel.Score += CoinValue;
+                FindAnyObjectByType<LvlController>().GetComponent<LvlController>().UpdateScore();
+                Destroy(gameObject);
+            }
+            else
+            {
+                _player.PlayerModel.Score += CoinValue;
+                _player.PlayerModel.BoxCollected++;
+                FindAnyObjectByType<LvlController>().GetComponent<LvlController>().UpdateScore();
+                if(_player.PlayerModel.BoxCollected >= _player.PlayerModel.NeedBoxes)
+                {
+                    FindAnyObjectByType<LvlController>().GetComponent<LvlController>().ShowPicture();
+                }
+                Destroy(gameObject);
+            }
         }
     }
-
 }

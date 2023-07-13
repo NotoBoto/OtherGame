@@ -38,4 +38,18 @@ public class PlayerModel
         get { return _isUsingWeapon; }
         set { _isUsingWeapon = value; }
     }
+
+    private int _boxCollected;
+    public int BoxCollected
+    {
+        get { return _boxCollected; }
+        set { _boxCollected = value; }
+    }
+
+    private int _needBoxes;
+    public int NeedBoxes
+    {
+        get { return _needBoxes; }
+        set { _needBoxes = value; }
+    }
 }
